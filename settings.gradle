@@ -8,7 +8,10 @@
  */
 
 rootProject.name = 'spring-cloud-gateway-demo'
-include 'eureka-server'
-include 'pc'
-include 'po'
-include 'spring-cloud-gateway'
+include(
+        'eureka-server',
+        'pc',
+        'po',
+        'spring-cloud-gateway',
+        'spring-boot-admin-server'
+)

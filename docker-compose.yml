@@ -23,6 +23,7 @@ services:
       SPRING_DATA_MONGODB_HOST: mongo
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: 'http://eureka:8761/eureka/'
+      SPRING_BOOT_ADMIN_CLIENT_URL: 'http://admin:8080'
 
   po:
     build: ./po
@@ -38,8 +39,8 @@ services:
     environment:
       SPRING_DATA_MONGODB_HOST: mongo
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
-      pcurl: 'pc:8080'
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: 'http://eureka:8761/eureka/'
+      SPRING_BOOT_ADMIN_CLIENT_URL: 'http://admin:8080'
 
   gateway:
     build: ./spring-cloud-gateway
@@ -54,6 +55,17 @@ services:
     environment:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
       pcurl: 'http://pc:8080'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: 'http://eureka:8761/eureka/'
+
+  admin:
+    build: ./spring-boot-admin-server
+    ports:
+      - '8070:8080'
+      - '5040:5005'
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: 'http://eureka:8761/eureka/'
 
 networks:
